@@ -1,0 +1,32 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'java'
+}
+
+group 'spigot.broadcast.reader'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://mvnrepository.com/artifact/com.codahale.metrics/metrics-core'}
+    maven { url 'https://mvnrepository.com/artifact/io.dropwizard.metrics/metrics-healthchecks'}
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    implementation group: 'com.codahale.metrics', name: 'metrics-core', version: '3.0.2'
+    implementation group: 'io.dropwizard.metrics', name: 'metrics-healthchecks', version: '4.2.3'
+    implementation "net.dv8tion:JDA:4.3.0_277"
+}
+
+test {
+    useJUnitPlatform()
+}
