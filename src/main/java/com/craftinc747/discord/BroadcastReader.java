@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -49,6 +50,11 @@ public class BroadcastReader extends JavaPlugin implements Listener  {
     }
     @EventHandler
     public void onPlayerChatEvent (AsyncPlayerChatEvent event) {
+        channel.sendMessage(event.getMessage()).queue();
+    }
+
+    @EventHandler
+    public void onPlayerCommandPreprocessEvent (PlayerCommandPreprocessEvent event) {
         channel.sendMessage(event.getMessage()).queue();
     }
 }

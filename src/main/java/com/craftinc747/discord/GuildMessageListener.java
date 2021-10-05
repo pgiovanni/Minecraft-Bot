@@ -9,5 +9,7 @@ public class GuildMessageListener extends ListenerAdapter {
 
     public void onGuildMessageReceived (@NotNull GuildMessageReceivedEvent event) {
 
+
+
     }
 }
