@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -13,19 +14,19 @@ import javax.security.auth.login.LoginException;
 
 public class BroadcastReader extends JavaPlugin implements Listener  {
 
-    public JDA jda;
+    static public JDA jda;
     public String guildId;
     public String channelId;
     public String botId;
     public Guild guild;
-    public TextChannel channel;
+    static public TextChannel channel;
 
     @Override
     public void onEnable() {
 
         guildId = "758813062848708670";
         channelId = "758813063448363011";
-        botId = "ODgyMzYyOTE5OTA2NjA3MTk4.YS6SgQ.7mqyXz6adqnKgq7tV8nGnsT9R8k";
+        botId = "ODgyMzYyOTE5OTA2NjA3MTk4.YS6SgQ.gVcH_kzRTwlWvEYKMiuYZPM50iM";
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -56,6 +57,11 @@ public class BroadcastReader extends JavaPlugin implements Listener  {
     @EventHandler
     public void onPlayerCommandPreprocessEvent (PlayerCommandPreprocessEvent event) {
         channel.sendMessage(event.getMessage()).queue();
+    }
+
+    @EventHandler
+    public void onDisable (PluginDisableEvent event) {
+        jda.shutdown();
     }
 }
 
