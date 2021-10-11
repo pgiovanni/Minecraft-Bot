@@ -1,3 +1,5 @@
 main: com.craftinc747.discord.BroadcastReader
 name: BroadcastReader
 version: 1.0.0
+database: true
+

@@ -1,0 +1,6 @@
+database: logReader
+  host: localhost
+  port: 3306
+  database: logReader
+  user: paul
+  password: Smellyf33t

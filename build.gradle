@@ -25,6 +25,8 @@ dependencies {
     implementation group: 'com.codahale.metrics', name: 'metrics-core', version: '3.0.2'
     implementation group: 'io.dropwizard.metrics', name: 'metrics-healthchecks', version: '4.2.3'
     implementation "net.dv8tion:JDA:4.3.0_277"
+    implementation 'mysql:mysql-connector-java:5.1.6'
+    implementation 'com.zaxxer:HikariCP:5.0.0'
 }
 
 test {

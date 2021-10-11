@@ -1,7 +1,11 @@
 package com.craftinc747.discord;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -11,8 +15,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import javax.security.auth.login.LoginException;
+import javax.xml.crypto.Data;
+import java.io.File;
+import java.sql.*;
 
-public class BroadcastReader extends JavaPlugin implements Listener  {
+public class BroadcastReader extends JavaPlugin implements Listener {
 
     static public JDA jda;
     public String guildId;
@@ -20,13 +27,32 @@ public class BroadcastReader extends JavaPlugin implements Listener  {
     public String botId;
     public Guild guild;
     static public TextChannel channel;
+    public Connection con;
+    public ResultSet resultSet;
+    public Statement statement;
+    public FileConfiguration config;
 
     @Override
     public void onEnable() {
 
-        guildId = "758813062848708670";
-        channelId = "758813063448363011";
-        botId = "ODgyMzYyOTE5OTA2NjA3MTk4.YS6SgQ.gVcH_kzRTwlWvEYKMiuYZPM50iM";
+        config = this.getConfig();
+        
+
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/logReader", "paul", "Smellyf33t");
+            statement = con.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM GuildInformation WHERE GuildName='Paul G';");
+            while(resultSet.next()) {
+                guildId = resultSet.getString(2);
+                channelId = resultSet.getString(3);
+            }
+            con.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        botId = "ODgyMzYyOTE5OTA2NjA3MTk4.YS6SgQ.eFeRMpA1OpKsiemm8CibA9Sf20Q";
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -43,11 +69,9 @@ public class BroadcastReader extends JavaPlugin implements Listener  {
         }
 
         guild = jda.getGuildById(guildId);
-        if (guild == null)
-            System.out.println("guild is null");
+        assert guild != null;
         channel = guild.getTextChannelById(channelId);
-        if (channel == null)
-            System.out.println("channel is null");
+
     }
     @EventHandler
     public void onPlayerChatEvent (AsyncPlayerChatEvent event) {
