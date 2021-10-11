@@ -15,8 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import javax.security.auth.login.LoginException;
-import javax.xml.crypto.Data;
-import java.io.File;
 import java.sql.*;
 
 public class BroadcastReader extends JavaPlugin implements Listener {
