@@ -36,7 +36,7 @@ public class BroadcastReader extends JavaPlugin implements Listener {
     public void onEnable() {
 
         config = this.getConfig();
-        
+
 
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/logReader", "paul", "Smellyf33t");
